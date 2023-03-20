@@ -1,45 +1,17 @@
 from flask import Flask, render_template, jsonify, request
-from database import load_data_from_db, load_job_from_db, add_application_to_db
+from database import load_jobs_from_db, load_job_from_db, add_application_to_db
 # from database import load_data_from_jobs
 
 app = Flask (__name__)  
 
-# JOBS =[
-# {
-#   'id': 1,
-#   'title':'Data analyst',
-#   'location':'Bengluru, India',
-#   'salary': 'Rs 10,00,000'
-# },
-#   {
-#   'id': 2,
-#   'title':'Data scientist',
-#   'location':'Delhi, India',
-#   'salary': 'Rs 15,00,000'
-# },
-#   {
-#   'id': 3,
-#   'title':'software engineer',
-#   'location':'San francisco, USA',
-
-# },
-#   {
-#   'id': 4,
-#   'title':'frontend engineer',
-#   'location':'mumbai, India',
-#   'salary': 'Rs 10,50,000'
-# }
-# ]
-
-
 @app.route("/")
 def hello_world():
-  jobs = load_data_from_db()
+  jobs = load_jobs_from_db()
   return render_template('home.html',jobs=jobs)
 
 @app.route("/api/jobs")
 def list_jobs():     
-  jobs = load_data_from_db()
+  jobs = load_jobs_from_db()
   return jsonify(jobs)
 
 @app.route("/job/<id>")
@@ -57,6 +29,7 @@ def apply_to_job(id):
   job = load_job_from_db(id)
   add_application_to_db(id,data)
   return render_template('application_submitted.html', application=data, job=job)
+
   
 
 

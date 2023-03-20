@@ -13,7 +13,7 @@ engine=create_engine(
   }
 )
 
-def load_data_from_db():
+def load_jobs_from_db():
   with engine.connect() as conn:
     result = conn.execute(text("select * from jobs"))
 
